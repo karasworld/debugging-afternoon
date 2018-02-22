@@ -13,13 +13,14 @@ let initialState = {
 }
 
 // Reducer
-export default function reducer(state, action) {
+export default function reducer(state = initialState, action) {
     switch(action.type) {
         case GET_ALL_PRODUCTS_PENDING:
             return Object.assign({}, state, {loading: true});
 
         case GET_ALL_PRODUCTS_FULFILLED:
-            return Object.assign({}, state, {loading: false, products: action.payload})
+        console.log(action.payload)
+            return Object.assign({}, state, {loading: false, products: action.payload});
 
         case ADD_TO_SHOPPING_CART:
             return Object.assign({}, state, {shoppingCart: [...state.shoppingCart, action.payload]});
@@ -27,7 +28,7 @@ export default function reducer(state, action) {
         case REMOVE_FROM_SHOPPING_CART:
             let newArray = state.shoppingCart.slice();
             newArray.splice(action.index, 1);
-            return Object.assign({}, {shoppingCart: newArray});
+            return Object.assign({}, state, {shoppingCart: newArray});
             
         default:
             return state;
